@@ -9,7 +9,7 @@ require('dotenv').config();// load the environment variables
 connectDB(process.env.DB_URL);
 
 const app = express();
-const PORT = 8082;
+const PORT = process.env.PORT || 8082;
 
 app.use(express.json());//parse incoming json request
 app.use(cors());// allowing CORS requests
