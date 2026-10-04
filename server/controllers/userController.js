@@ -1,60 +1,80 @@
-const UserModel = require('../models/userModel');
+const jwt = require("jsonwebtoken");
+const UserModel = require("../models/userModel");
 
 const createUser = async function (req, res) {
-    try {
-      const userExists = await UserModel.findOne({ email: req.body.email });
-      if (userExists) {
-        return res.send({
-          success: false,
-          message: "User already registered",
-        });
-      }
-  
-      const newUser = await UserModel(req.body);
-      await newUser.save();
-      res.send({
-        success: true,
-        message: "Registration successfull, please Login",
+  try {
+    const userExists = await UserModel.findOne({ email: req.body.email });
+    if (userExists) {
+      return res.send({
+        success: false,
+        message: "User is already registered.",
       });
-    } catch (err) {
-      console.log(err);
-      res.send({
-        success:false,
-        message:"An error occured, please try again later."
+    }
+
+    const newUser = await UserModel(req.body);
+    await newUser.save();
+    res.send({
+      success: true,
+      message: "Registration is successfull. Please Login.",
     });
-    }
+  } catch (err) {
+    console.log(err);
+    res.send({
+      success: false,
+      message: "An error occured, please try again later.",
+    });
   }
+};
 
-  const readUser = async function (req,res){
-    try{
-      const user = await UserModel.findOne({email:req.body.email});
-      if(!user){
-        return res.send({
-            success:false,
-            message:"User does not exist, Please register"
-        })
-      }
-
-      //check for password for the time being we have stored password as plain text
-      if(user.password !== req.body.password){
-        return res.send({
-            success:false,
-            message:"Invalid Password"
-        })
-      }
-
-      res.send({
-        success:true,
-        message:"Login Successful",
-      })
-
-    }catch(err){
-        console.log(err);
-        res.send({
-            success:false,
-            message:"An error occured, please try again later."
-        });
+const readUser = async function (req, res) {
+  try {
+    const user = await UserModel.findOne({ email: req.body.email });
+    if (!user) {
+      return res.send({
+        success: false,
+        message: "User does not exist, please register.",
+      });
     }
-  }
 
-  module.exports = {createUser,readUser}
+    //check for password for the time being we have stored password as plain text
+    if (user.password !== req.body.password) {
+      return res.send({
+        success: false,
+        message: "Invalid Password",
+      });
+    }
+
+    const token = jwt.sign({userId:user._id},process.env.JWT_SECRET_KEY,{expiresIn:"1d"})
+    console.log(token);
+    res.send({
+      success: true,
+      message: "Login Successful!",
+      data:token
+    });
+  } catch (err) {
+    console.log(err);
+    res.send({
+      success: false,
+      message: "An error occured, please try again later.",
+    });
+  }
+};
+
+const getCurrentUser = async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const user = await UserModel.findById(userId).select("-password");
+    res.send({
+      success: true,
+      message: "You are Authenticated.",
+      data: user,
+    });
+  } catch (err) {
+    res.send({
+      success: false,
+      message: err.message,
+    });
+  }
+}
+
+module.exports = { createUser, readUser, getCurrentUser };

@@ -1,6 +1,26 @@
-import { Form, Button, Input } from "antd";
-import { Link } from "react-router-dom";
+import { Form, Button, Input, message } from "antd";
+import { Link,useNavigate } from "react-router-dom";
+import { LoginUser } from "../api/user";
 export default function Login() {
+
+  const navigate = useNavigate();
+  const handleFinish = async (values)=>{
+    try{
+      const data = await LoginUser(values);
+      if(data.success){
+        message.success(data.message);
+        const token = data.data;
+        console.log(token);
+        localStorage.setItem('token',token);
+        navigate('/')
+      }else{
+        message.error(data.message);
+      }
+    }catch(err){
+      message.error(err.message);
+    }
+    
+  }
   return (
     <>
       <header className="App-header">
@@ -9,9 +29,10 @@ export default function Login() {
             <h1>Login to BookMyShow</h1>
           </section>
           <section>
-            <Form layout="vertical">
+            <Form layout="vertical" onFinish={handleFinish}>
               <Form.Item
                 label="Email"
+                name="email"
                 htmlFor="email"
                 className="d-block"
                 rules={[{ required: true, message: "Please enter a email" }]}
@@ -21,10 +42,11 @@ export default function Login() {
               <Form.Item
                 label="Password"
                 htmlFor="password"
+                name="password"
                 className="d-block"
                 rules={[{ required: true, message: "Please enter your password" }]}
               >
-                <Input id="password" type="text" placeholder="Enter your password" />
+                <Input id="password" type="password" placeholder="Enter your password" />
               </Form.Item>
               <Form.Item
                 className="d-block"
