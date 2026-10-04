@@ -40,7 +40,7 @@ const readUser = async function (req, res) {
     if (user.password !== req.body.password) {
       return res.send({
         success: false,
-        message: "Invalid Password",
+        message: "Sorry, invalid username or password entered!",
       });
     }
 
@@ -48,7 +48,7 @@ const readUser = async function (req, res) {
     console.log(token);
     res.send({
       success: true,
-      message: "Login Successful!",
+      message: "You've successfully logged in!",
       data:token
     });
   } catch (err) {
