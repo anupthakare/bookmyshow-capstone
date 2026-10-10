@@ -14,7 +14,7 @@ function Admin() {
 
     {
       key: "2",
-      label: "Theatres",
+      label: "Theaters",
       children: <TheatersTable />,
     },
   ];
