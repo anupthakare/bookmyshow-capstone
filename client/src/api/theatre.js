@@ -14,7 +14,7 @@ export const getAllTheatresForOwner = async (values) => {
 
 export const getAlTheatreForAdmin = async ()=>{
     try{
-        const resp = await axiosInstance.get(`${BASE_URL}//get-all`);
+        const resp = await axiosInstance.get(`${BASE_URL}/get-all`);
         return resp.data;
     }catch(err){
         console.log(err);

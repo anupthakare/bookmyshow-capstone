@@ -112,7 +112,7 @@ return (
         </Button>
       </div>
 
-      <Table dataSource={movies} columns={tableHeadings} />
+      <Table dataSource={movies} columns={tableHeadings}/>
       {isModalOpen && (
         <MovieForm
           isModalOpen={isModalOpen}

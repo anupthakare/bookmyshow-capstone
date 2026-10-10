@@ -4,7 +4,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/protectedRoute.jsx";
 import store from './redux/store';
 import Admin from "./pages/Admin/Admin";
 import Partner from "./pages/Partner/Partner";
