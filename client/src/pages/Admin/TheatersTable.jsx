@@ -2,7 +2,7 @@ import { Table } from 'antd'
 import React from 'react'
 
 
-function TheatersTable() {
+function TheatresTable() {
   return (
     <div>
        <Table/>
@@ -10,4 +10,4 @@ function TheatersTable() {
   )
 }
 
-export default TheatersTable
+export default TheatresTable

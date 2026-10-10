@@ -2,7 +2,7 @@ import React from "react";
 
 import { Tabs } from "antd";
 import MovieList from "./MovieList";
-import TheatersTable from "./TheatersTable";
+import TheatresTable from "./TheatresTable";
 
 function Admin() {
   const tabItems = [
@@ -14,8 +14,8 @@ function Admin() {
 
     {
       key: "2",
-      label: "Theaters",
-      children: <TheatersTable />,
+      label: "Theatres",
+      children: <TheatresTable />,
     },
   ];
 
