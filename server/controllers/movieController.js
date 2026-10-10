@@ -42,6 +42,7 @@ const updateMovie = async (req, res) => {
 const deleteMovie = async (req, res) => {
   try {
     const movieId = req.body.id;
+    console.log(req.body);
     await MovieModel.findByIdAndDelete(movieId);
     res.send({
       success: true,
@@ -57,7 +58,7 @@ const deleteMovie = async (req, res) => {
 
 const addMovie = async (req, res) => {
   try {
-    const newMovie = await MovieModel(req.body);
+    const newMovie = await MovieModel(req.body); debugger
     await newMovie.save();
     res.send({
       success: true,

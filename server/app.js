@@ -14,8 +14,8 @@ const PORT = process.env.PORT || 8082;
 
 app.use(express.json());//parse incoming json request
 app.use(cors());// allowing CORS requests
-app.use('/api/user',userRoute);
-app.use('/api/movie',movieRoute);
+app.use('/api/user', userRoute);
+app.use('/api/movie', movieRoute);
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
