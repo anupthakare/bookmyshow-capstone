@@ -24,7 +24,7 @@ import {
   getShowsByTheatre,
   updateShow,
   deleteShow,
-} from "../../api/show";
+} from "../../api/shows";
 
 const ShowModal = ({
   isShowModalOpen,
