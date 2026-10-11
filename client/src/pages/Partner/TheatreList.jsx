@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, message } from "antd";
 import TheatreFormModal from "./TheatreFormModal";
-import DeleteTheatreModal from "./DeleteTheatreModel";
+import DeleteTheatreModal from "./DeleteTheatreModal";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { getAllTheatresForOwner } from "../../api/theatre";
 import { useSelector } from "react-redux";

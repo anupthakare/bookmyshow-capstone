@@ -24,7 +24,7 @@ const DeleteTheatreModal = ({
       setIsDeleteModalOpen(false);
     } catch (err) {
       setIsDeleteModalOpen(false);
-      message.error(err.messagae);
+      message.error(err.message);
     }
   };
   const handleCancel = () => {
