@@ -147,8 +147,7 @@ const BookShow = () => {
                   billingAddress
                   currency="INR"
                   amount={selectedSeats.length * show.ticketPrice * 100}
-                  //stripeKey="pk_test_51Q1WBGDc5J7nS49CHNkLN6ZQd0QNUni7qmN90CaISQ9YvoXJMc4PnRdTfjjQK1gw73fbGBXoIGz1x1WUs9gA7Ix900mK2ut7ZT"
-                  stripeKey="pk_test_51URpXy7MOfc7mqlxI5eWuz8PIXi7GB0xEOPlnehJypR7K4fcLmLzmF4MhzZ29WIArMZiyKIdr4CWmjAXP7UFb3AJ00qkf8C4gb"
+                  stripeKey="pk_test_51URuU97vOOXD1Pie6ORwwzaLX0gqPp7DazTpILhf6EB8ZADmkeGrf579ARnxO4f6mKHeFBJrDXczwUAUigvFcwkV00b8f721ve"
                 >
                   {/* Use this one in some situation=> pk_test_eTH82XLklCU1LJBkr2cSDiGL001Bew71X8  */}
                   <div className="max-width-600 mx-auto">
