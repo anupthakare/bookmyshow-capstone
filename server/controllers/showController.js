@@ -43,7 +43,7 @@ const updateShow = async (req, res) => {
     await show.save();
     res.send({
       success: true,
-      message: "Show has been updated successfully.",
+      message: "Show has been updated successfully",
     });
   } catch (err) {
     res.send({
@@ -60,8 +60,44 @@ const getAllShowByTheatre = async (req, res) => {
       .populate("movie");
     res.send({
       success: true,
-      message: "All Shows have been fetched for theatre.",
+      message: "All Shows have been fetched for theatre",
       data: shows,
+    });
+  } catch (err) {
+    res.send({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
+const getTheatreByMovie = async (req, res) => {
+  try {
+    const { movie, date } = req.body;
+    const shows = await showModel
+      .find({ movie: movie, date: date })
+      .populate("theatre");
+    //   [{noon show,pvr chennai},{morning show,pvr chennai},{morningshow, kolkata}]
+    console.log(shows);
+    const uniqueTheatres = [];
+    shows.forEach((show) => {
+      let isTheatre = uniqueTheatres.find(
+        (theatre) => theatre._id === show.theatre._id
+      );
+      if (!isTheatre) {
+        let showsOfThisTheatre = shows.filter(
+          (showObj) => showObj.theatre._id == show.theatre._id
+        );
+        uniqueTheatres.push({
+          ...show.theatre._doc,
+          shows: showsOfThisTheatre,
+        });
+      }
+    });
+    res.send({
+      success: true,
+      message: "All theatre having shows for movies fetched successfully",
+      data: uniqueTheatres,
     });
   } catch (err) {
     res.send({
@@ -77,11 +113,11 @@ const getShowById = async (req, res) => {
       .findById(req.body.showId)
       .populate("movie")
       .populate("theatre");
-      res.send({
-        success:true,
-        message:"Show has been fetched.",
-        data:show
-      })
+    res.send({
+      success: true,
+      message: "Show has been fetched",
+      data: show,
+    });
   } catch (err) {
     res.send({
       success: false,
@@ -90,4 +126,11 @@ const getShowById = async (req, res) => {
   }
 };
 
-module.exports = { addShow, deleteShow, updateShow, getAllShowByTheatre, getShowById };
+module.exports = {
+  addShow,
+  deleteShow,
+  updateShow,
+  getAllShowByTheatre,
+  getShowById,
+  getTheatreByMovie
+};
