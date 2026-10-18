@@ -4,7 +4,7 @@ import { getSingleMovie } from "../api/movie";
 import { message, Input, Divider, Row, Col } from "antd";
 import { CalendarOutlined } from "@ant-design/icons";
 import moment from "moment";
-import { getTheatreByMovie } from "../api/shows";
+import { getTheatreByMovie } from "../api/show";
 
 const SingleMovie = () => {
   const params = useParams();

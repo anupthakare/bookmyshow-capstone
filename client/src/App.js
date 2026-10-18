@@ -9,6 +9,7 @@ import store from './redux/store';
 import Admin from "./pages/Admin/Admin";
 import Partner from "./pages/Partner/Partner";
 import SingleMovie from "./components/SingleMovie";
+import BookShow from "./components/BookShow";
 
 function App() {
   return (
@@ -16,29 +17,41 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route
-            path="/"
-            element={
+            path="/" element={
               <ProtectedRoute>
                 <Home />
               </ProtectedRoute>
             }
           />
+          
           <Route path="/login" element={<Login />} />
+          
           <Route path="/register" element={<Register />} />
+          
           <Route path='/admin' element={
             <ProtectedRoute>
               <Admin/>
             </ProtectedRoute>
           }/>
+          
           <Route path='/partner' element={
             <ProtectedRoute>
               <Partner/>
             </ProtectedRoute>
           }/>
+          
           <Route path="/movie/:id" element={
           <ProtectedRoute>
             <SingleMovie/>
           </ProtectedRoute>
+          }
+          />
+
+          <Route path="/book-show/:id"
+          element={
+            <ProtectedRoute>
+              <BookShow/>
+            </ProtectedRoute>
           }
           />
         </Routes>
