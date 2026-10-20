@@ -4,10 +4,11 @@ import { getShowById } from "../api/show";
 import { useNavigate, useParams } from "react-router-dom";
 import { message, Card, Row, Col, Button } from "antd";
 import moment from "moment";
-import StripeCheckout from "react-stripe-checkout"; // Stripe Checkout
+import StripeCheckout from "react-stripe-checkout";
+import { bookShow, makePayment } from "../api/bookings";
 
 const BookShow = () => {
-  const { user } = useSelector((state) => state.user);
+  const {user} = useSelector((state) => state.user);
   const [show, setShow] = useState();
   const [selectedSeats, setSelectedSeats] = useState([]);
   const params = useParams();
@@ -97,13 +98,40 @@ const BookShow = () => {
     );
   };
 
-  const onToken = (token) => {
-    console.log(token);
+  const onToken = async (token) => {
+    try {
+      const response = await makePayment(
+        token,
+        selectedSeats.length * show.ticketPrice * 100
+      );
+      console.log(response);
+      const transactionId = response.data;
+      if (response.success) {
+        message.success(response.message);
+        const resp = await bookShow({
+          show: params.id,
+          transactionId,
+          seats: selectedSeats,
+          user: user._id,
+        });
+        if (resp.success) {
+          message.success(resp.message);
+          navigate("/profile");
+        } else {
+          message.error("Failed to book show.");
+        }
+      } else {
+        message.error(response.message);
+      }
+    } catch (err) {
+      message.error(err.message);
+    }
   };
 
   useEffect(() => {
     getData();
   }, []);
+
   return (
     <>
       {show && (
