@@ -20,7 +20,6 @@ const userSchema = new mongoose.Schema({
         required:true,
         default:'user'
     },
-
     //Net fields to take care of otp
     otp:{
         type:String,

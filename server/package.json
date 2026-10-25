@@ -6,7 +6,8 @@
         "express": "^4.19.2",
         "jsonwebtoken": "^9.0.3",
         "mongodb": "^6.8.0",
-        "mongoose": "^8.6.1",
+        "mongoose": "^8.24.7",
+        "nodemailer": "^10.2.1",
         "redux": "^5.0.1",
         "stripe": "^23.0.0"
     }
