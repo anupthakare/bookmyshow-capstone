@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import store from './redux/store';
 import Admin from "./pages/Admin/Admin";
 import Partner from "./pages/Partner/Partner";
+import Profile from "./pages/Profile/Profile";
 import SingleMovie from "./components/SingleMovie";
 import BookShow from "./components/BookShow";
 import Forget from "./pages/Forget";
@@ -25,11 +26,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-          
-          <Route path="/login" element={<Login />} />
-          
+          <Route path="/login" element={<Login />} />      
           <Route path="/register" element={<Register />} />
-          
           <Route path="/forgot-password" element={<Forget />} />
           <Route path="/reset-password" element={<Reset />} />
           <Route path='/admin' element={
@@ -37,20 +35,22 @@ function App() {
               <Admin/>
             </ProtectedRoute>
           }/>
-          
           <Route path='/partner' element={
             <ProtectedRoute>
               <Partner/>
             </ProtectedRoute>
           }/>
-          
+          <Route path="/profile" element={
+              <ProtectedRoute>
+                <Profile/>
+              </ProtectedRoute>
+          }/>
           <Route path="/movie/:id" element={
           <ProtectedRoute>
             <SingleMovie/>
           </ProtectedRoute>
           }
           />
-
           <Route path="/book-show/:id"
           element={
             <ProtectedRoute>
@@ -59,7 +59,6 @@ function App() {
           }
           />
         </Routes>
-        
       </BrowserRouter>
     </Provider>
   );
