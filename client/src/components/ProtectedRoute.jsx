@@ -7,12 +7,7 @@ import { HomeOutlined, LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { Header } from "antd/es/layout/layout";
 import { setUser } from "../redux/userSlice";
 import { hideLoading, showLoading } from "../redux/loaderSlice";
-
-const ROLE = {
-  ADMIN: "admin",
-  PARTNER: "partner",
-  USER: "user",
-}
+import { ROLE } from "../utils/constant";
 
 export default function ProtectedRoute({ children }) {
   const { user } = useSelector((store) => store.user);
@@ -39,7 +34,7 @@ export default function ProtectedRoute({ children }) {
           key: "profile",
           label: "My Profile",
           icon: <UserOutlined />,
-           onClick:()=>{
+           onClick:()=>{ 
             if(user.role === ROLE.ADMIN){
                 navigate("/admin");
             }else if(user.role === ROLE.PARTNER){
