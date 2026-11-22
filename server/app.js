@@ -1,6 +1,7 @@
 
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const helmet = require("helmet");
@@ -15,11 +16,23 @@ const bookingRoute = require('./routes/bookingRoutes');
 
 //connect to the database
 connectDB(process.env.DB_URL);
-
-const app = express();
 const PORT = process.env.PORT || 8082;
 
-app.use(helmet());
+//added to serve static files from the client build directory
+const app = express();
+const clientBuildPath=path.join(__dirname,"../client/build");
+app.use(express.static(clientBuildPath));
+
+//app.use(helmet());
+
+//changed for allowing images from data URLs and HTTPS sources.
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      imgSrc: ["'self'", "data:", "https:"],
+    },
+  },
+}));
 
 // app.use(
 //     helmet.contentSecurityPolicy({
@@ -57,6 +70,12 @@ app.use('/api/movie', movieRoute);
 app.use('/api/show',showRoute);
 app.use('/api/theatre', theatreRoute);
 app.use('/api/booking', bookingRoute);
+
+//added to serve the client app for unmatched routes
+app.get('*', (req, res) => {
+    res.sendFile(path.join(clientBuildPath, 'index.html'));
+});
+
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
 })
